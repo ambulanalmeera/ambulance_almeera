@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { motion, useMotionValue, animate } from "framer-motion";
+import { motion, useMotionValue, animate, PanInfo } from "framer-motion";
 import FormModal from "../components/FormModal";
 import ServicingSectionSkeleton from "../components/skeletton/servicingsectionskeletton";
 
@@ -35,7 +35,7 @@ function ServiceCardItem({ card, onOpenModal }: ServiceCardItemProps) {
         transform: "translateZ(0)",
         backfaceVisibility: "hidden",
       }}
-      className="card-item w-[340px] sm:w-[340px] md:w-[360px] flex-shrink-0 bg-white rounded-lg overflow-hidden border border-gray-100 flex flex-col justify-between relative"
+      className="card-item w-[calc(100vw-3rem)] sm:w-[340px] md:w-[360px] flex-shrink-0 bg-white rounded-lg overflow-hidden border border-gray-100 flex flex-col justify-between relative"
     >
       {/* skeleton */}
       <div
@@ -106,16 +106,16 @@ function ServiceCardItem({ card, onOpenModal }: ServiceCardItemProps) {
 export default function ServicingSection() {
   // refs
   const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   // state
   const [dragConstraints, setDragConstraints] = useState({ left: 0, right: 0 });
-  const [maxScroll, setMaxScroll] = useState(0);
+  const [snapPositions, setSnapPositions] = useState<number[]>([]);
   const [currentDot, setCurrentDot] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedServiceTitle, setSelectedServiceTitle] = useState("");
 
   const x = useMotionValue(0);
-  const totalDots = 8;
 
   // cards data
   const cards: readonly ServiceItem[] = [
@@ -181,51 +181,83 @@ export default function ServicingSection() {
     },
   ];
 
-  // effect
+  const totalDots = cards.length;
+
+  // effect for precise DOM-based layout and snap calculations
   useEffect(() => {
     const updateLayout = () => {
-      if (containerRef.current) {
-        const totalWidth = containerRef.current.scrollWidth;
-        const visibleWidth = containerRef.current.clientWidth;
-        const scrollLimit = totalWidth - visibleWidth;
+      if (containerRef.current && trackRef.current) {
+        const containerWidth = containerRef.current.clientWidth;
+        const cardElements = Array.from(
+          trackRef.current.children,
+        ) as HTMLElement[];
 
-        setMaxScroll(scrollLimit);
-        setDragConstraints({ left: -scrollLimit, right: 0 });
+        if (cardElements.length > 0) {
+          const positions = cardElements.map((card) => -card.offsetLeft);
+          setSnapPositions(positions);
+
+          const totalWidth = trackRef.current.scrollWidth;
+          const scrollLimit = totalWidth - containerWidth;
+          setDragConstraints({
+            left: scrollLimit > 0 ? -scrollLimit : 0,
+            right: 0,
+          });
+        }
       }
     };
 
     updateLayout();
     window.addEventListener("resize", updateLayout);
     return () => window.removeEventListener("resize", updateLayout);
-  }, []);
+  }, [cards.length]);
 
   // handlers
-  const handleDragEnd = () => {
-    if (!maxScroll) return;
+  const handleDragEnd = (
+    _event: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo,
+  ) => {
+    if (snapPositions.length === 0) return;
+
     const currentX = x.get();
-    const progress = Math.abs(currentX) / maxScroll;
-    const rawDot = Math.round(progress * (totalDots - 1));
-    const clampedDot = Math.max(0, Math.min(rawDot, totalDots - 1));
+    const velocity = info.velocity.x;
 
-    setCurrentDot(clampedDot);
-    const targetX = -(clampedDot / (totalDots - 1)) * maxScroll;
+    let closestIndex = 0;
+    let minDistance = Infinity;
 
-    animate(x, targetX, {
+    snapPositions.forEach((pos, idx) => {
+      const distance = Math.abs(currentX - pos);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestIndex = idx;
+      }
+    });
+
+    if (velocity < -300 && closestIndex < snapPositions.length - 1) {
+      closestIndex += 1;
+    } else if (velocity > 300 && closestIndex > 0) {
+      closestIndex -= 1;
+    }
+
+    setCurrentDot(closestIndex);
+    animate(x, snapPositions[closestIndex], {
       type: "spring",
-      stiffness: 300,
-      damping: 30,
+      stiffness: 400,
+      damping: 35,
     });
   };
 
   const goToDot = (index: number) => {
-    if (!maxScroll) return;
+    if (
+      snapPositions.length === 0 ||
+      index < 0 ||
+      index >= snapPositions.length
+    )
+      return;
     setCurrentDot(index);
-    const targetX = -(index / (totalDots - 1)) * maxScroll;
-
-    animate(x, targetX, {
+    animate(x, snapPositions[index], {
       type: "spring",
-      stiffness: 300,
-      damping: 30,
+      stiffness: 400,
+      damping: 35,
     });
   };
 
@@ -262,10 +294,11 @@ export default function ServicingSection() {
         ref={containerRef}
       >
         <motion.div
+          ref={trackRef}
           drag="x"
           dragConstraints={dragConstraints}
-          dragElastic={0.15}
-          dragTransition={{ power: 0.2, timeConstant: 150 }}
+          dragElastic={0.1}
+          dragTransition={{ power: 0.1, timeConstant: 100 }}
           style={{ x }}
           onDragEnd={handleDragEnd}
           className="flex gap-4 md:gap-8 cursor-grab active:cursor-grabbing select-none will-change-transform"
