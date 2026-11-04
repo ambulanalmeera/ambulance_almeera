@@ -208,7 +208,7 @@ export default function StatsSection() {
       Math.min(targetIndex, sliderItems.length - visibleItems),
     );
 
-    // Looping mulus tak terbatas
+    // Looping 
     if (targetIndex >= baseItems.length * 2) {
       targetIndex = baseItems.length + (targetIndex % baseItems.length);
       x.set(-targetIndex * itemWidth);
