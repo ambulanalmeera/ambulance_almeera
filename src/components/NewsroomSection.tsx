@@ -187,7 +187,7 @@ export default function TestimonialsSection() {
               We Accept
             </h3>
             <a
-              href="tel:081289264252"
+              href="tel:081298200895"
               className="bg-white text-[#b81424] font-bold text-xs md:text-sm py-3 px-8 rounded-full uppercase tracking-wider hover:bg-gray-100 transition text-center cursor-pointer"
             >
               Contact Us

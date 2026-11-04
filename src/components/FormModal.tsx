@@ -42,7 +42,7 @@ export default function FormModal({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const waNumber = "6281289264252";
+    const waNumber = "6281298200895";
     const message = `Halo, saya ingin memesan layanan kedukaan.%0A%0A*Layanan:* ${selectedService}%0A*Nama:* ${name}%0A*Nomor Telepon / WhatsApp:* ${phone}%0A*Rencana Tanggal:* ${date || "Segera"}%0A*Alamat Penjemputan:* ${pickupAddress || "-"}%0A*Alamat Tujuan:* ${destinationAddress || "-"}%0A*Catatan:* ${notes || "-"}%0A%0AMohon konfirmasinya, terima kasih.`;
 
     const waUrl = `https://wa.me/${waNumber}?text=${message}`;
@@ -104,7 +104,7 @@ export default function FormModal({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Masukkan nama lengkap Anda"
-                className="w-full px-4 py-3 bg-white border border-neutral-300 focus:outline-none focus:border-neutral-900 text-neutral-900 text-sm rounded-sm"
+                className="w-full px-4 py-3 bg-white border border-neutral-300 focus:outline-none focus:border-neutral-900 text-neutral-900 text-base md:text-sm rounded-sm"
               />
             </div>
 
@@ -124,7 +124,7 @@ export default function FormModal({
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="Masukkan nomer Whatsapp"
-                className="w-full px-4 py-3 bg-white border border-neutral-300 focus:outline-none focus:border-neutral-900 text-neutral-900 text-sm rounded-sm"
+                className="w-full px-4 py-3 bg-white border border-neutral-300 focus:outline-none focus:border-neutral-900 text-neutral-900 text-base md:text-sm rounded-sm"
               />
             </div>
 
@@ -142,7 +142,7 @@ export default function FormModal({
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full min-w-0 box-border appearance-none px-4 py-3 bg-white border border-neutral-300 focus:outline-none focus:border-neutral-900 text-neutral-900 text-sm rounded-sm"
+                className="w-full min-w-0 box-border appearance-none px-4 py-3 bg-white border border-neutral-300 focus:outline-none focus:border-neutral-900 text-neutral-900 text-base md:text-sm rounded-sm"
               />
             </div>
 
@@ -162,7 +162,7 @@ export default function FormModal({
                 value={pickupAddress}
                 onChange={(e) => setPickupAddress(e.target.value)}
                 placeholder="Masukkan alamat lengkap lokasi penjemputan"
-                className="w-full px-4 py-3 bg-white border border-neutral-300 focus:outline-none focus:border-neutral-900 text-neutral-900 text-sm rounded-sm resize-none"
+                className="w-full px-4 py-3 bg-white border border-neutral-300 focus:outline-none focus:border-neutral-900 text-neutral-900 text-base md:text-sm rounded-sm resize-none"
               />
             </div>
 
@@ -181,7 +181,7 @@ export default function FormModal({
                 value={destinationAddress}
                 onChange={(e) => setDestinationAddress(e.target.value)}
                 placeholder="Masukkan alamat lengkap lokasi tujuan (opsional)"
-                className="w-full px-4 py-3 bg-white border border-neutral-300 focus:outline-none focus:border-neutral-900 text-neutral-900 text-sm rounded-sm resize-none"
+                className="w-full px-4 py-3 bg-white border border-neutral-300 focus:outline-none focus:border-neutral-900 text-neutral-900 text-base md:text-sm rounded-sm resize-none"
               />
             </div>
 
@@ -200,7 +200,7 @@ export default function FormModal({
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="Tulis keterangan detail lainnya jika ada"
-                className="w-full px-4 py-3 bg-white border border-neutral-300 focus:outline-none focus:border-neutral-900 text-neutral-900 text-sm rounded-sm resize-none"
+                className="w-full px-4 py-3 bg-white border border-neutral-300 focus:outline-none focus:border-neutral-900 text-neutral-900 text-base md:text-sm rounded-sm resize-none"
               />
             </div>
 
