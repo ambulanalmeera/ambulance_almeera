@@ -17,7 +17,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-[#193286] text-white pt-14 pb-8 px-4 sm:px-6 lg:px-8 font-sans border-t-4 border-[#b81424]">
-      <div className="max-w-7xl mx-auto px-12">
+      <div className="max-w-7xl mx-auto px-0 md:px-12">
         {/* bagian atas */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center pb-8 border-b border-[#2442a8] gap-6">
           {/* logo */}
