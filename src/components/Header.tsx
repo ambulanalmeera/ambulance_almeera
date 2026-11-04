@@ -102,7 +102,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
                 <div className="animate-marquee inline-flex font-black text-white">
                   <span className="inline-block pr-8">
                     Hubungi kami kapanpun Anda membutuhkan di nomor Whatsapp
-                    0812-8926-4253
+                    0812-9820-0895
                   </span>
                   <span className="inline-block pr-8">
                     Jl. Raden Fatah, Peninggilan Utara, Gang Haji Sibun, RT
@@ -110,7 +110,7 @@ export default function Header({ children }: { children?: React.ReactNode }) {
                   </span>
                   <span className="inline-block pr-8" aria-hidden="true">
                     Hubungi kami kapanpun Anda membutuhkan di nomor Whatsapp
-                    0812-8926-4253
+                    0812-9820-0895
                   </span>
                   <span className="inline-block pr-8" aria-hidden="true">
                     Jl. Raden Fatah, Peninggilan Utara, Gang Haji Sibun, RT
