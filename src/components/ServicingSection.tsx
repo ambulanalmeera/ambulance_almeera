@@ -16,9 +16,14 @@ interface ServiceItem {
 interface ServiceCardItemProps {
   readonly card: ServiceItem;
   readonly onOpenModal: (title: string) => void;
+  readonly priority?: boolean;
 }
 
-function ServiceCardItem({ card, onOpenModal }: ServiceCardItemProps) {
+function ServiceCardItem({
+  card,
+  onOpenModal,
+  priority = false,
+}: ServiceCardItemProps) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   // skeleton timer
@@ -94,6 +99,8 @@ function ServiceCardItem({ card, onOpenModal }: ServiceCardItemProps) {
             src={card.img}
             alt={card.title}
             fill
+            priority={priority}
+            sizes="(max-width: 768px) calc(100vw - 3rem), 360px"
             onLoad={() => setIsLoaded(true)}
             className="object-cover"
           />
@@ -308,6 +315,7 @@ export default function ServicingSection() {
               key={idx}
               card={card}
               onOpenModal={handleOpenModal}
+              priority={idx === 0}
             />
           ))}
         </motion.div>
