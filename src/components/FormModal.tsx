@@ -6,9 +6,9 @@ import { X, User, Phone, FileText, Calendar, MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface FormModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  selectedService: string;
+  readonly isOpen: boolean;
+  readonly onClose: () => void;
+  readonly selectedService: string;
 }
 
 export default function FormModal({
@@ -142,7 +142,7 @@ export default function FormModal({
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full px-4 py-3 bg-white border border-neutral-300 focus:outline-none focus:border-neutral-900 text-neutral-900 text-sm rounded-sm"
+                className="w-full min-w-0 box-border appearance-none px-4 py-3 bg-white border border-neutral-300 focus:outline-none focus:border-neutral-900 text-neutral-900 text-sm rounded-sm"
               />
             </div>
 

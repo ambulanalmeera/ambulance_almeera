@@ -14,8 +14,8 @@ function AnimatedCounter({
   value,
   duration = 2,
 }: {
-  value: number;
-  duration?: number;
+  readonly value: number;
+  readonly duration?: number;
 }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
@@ -208,7 +208,7 @@ export default function StatsSection() {
       Math.min(targetIndex, sliderItems.length - visibleItems),
     );
 
-    // Looping 
+    // Looping
     if (targetIndex >= baseItems.length * 2) {
       targetIndex = baseItems.length + (targetIndex % baseItems.length);
       x.set(-targetIndex * itemWidth);
@@ -242,6 +242,7 @@ export default function StatsSection() {
             fill
             className="object-cover object-center"
             priority
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#193286] via-[#193286]/85 to-[#193286]/40" />
         </div>
@@ -263,7 +264,10 @@ export default function StatsSection() {
               key={i}
               className="flex flex-col items-center justify-start text-center"
             >
-              <div className="w-15 h-15 relative mb-3 filter invert-[74%] sepia-[97%] saturate-[637%] hue-rotate-[3deg] brightness-[73%] contrast-[26%]">
+              <div
+                className="w-15 h-15 relative mb-3 filter invert-[74%] sepia-[97%] saturate-[637%] hue-rotate-[3deg] brightness-[73%] contrast-[26%]"
+                style={{ width: "60px", height: "60px" }}
+              >
                 <Image src={stat.icon} alt="" fill className="object-contain" />
               </div>
               <span className="block text-4xl lg:text-5xl font-black text-white tracking-tight">
@@ -332,6 +336,7 @@ export default function StatsSection() {
                         src={sub.image}
                         alt={`${sub.title} #${sub.id}`}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover pointer-events-none rounded-none"
                       />
                     </figure>
