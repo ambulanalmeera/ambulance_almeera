@@ -91,7 +91,7 @@ export default function WhatsAppFloating() {
 
       {/* whatsapp button */}
       <Link
-        href="https://wa.me/6281289264252"
+        href="https://wa.me/6281298200895"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat WhatsApp 24 Jam"
