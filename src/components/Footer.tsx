@@ -87,7 +87,7 @@ export default function Footer() {
                   href="tel:02155781234"
                   className="font-bold text-white underline hover:text-gray-300"
                 >
-                  (021) 5578 1234
+                  0812-9820-0895
                 </a>
               </p>
               <p className="flex items-start gap-3">
