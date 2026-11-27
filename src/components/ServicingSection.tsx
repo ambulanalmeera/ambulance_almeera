@@ -40,7 +40,7 @@ function ServiceCardItem({
         transform: "translateZ(0)",
         backfaceVisibility: "hidden",
       }}
-      className="card-item w-[calc(100vw-3rem)] sm:w-[340px] md:w-[360px] flex-shrink-0 bg-white rounded-lg overflow-hidden border border-gray-100 flex flex-col justify-between relative"
+      className="card-item w-[min(78vw,300px)] sm:w-[340px] md:w-[360px] flex-shrink-0 bg-white rounded-lg overflow-hidden border border-gray-100 flex flex-col justify-between relative"
     >
       {/* skeleton */}
       <div
@@ -60,10 +60,10 @@ function ServiceCardItem({
         }`}
       >
         {/* top content */}
-        <div className="bg-[#193286] text-white p-6 md:p-8 flex flex-col justify-between h-[350px]">
+        <div className="bg-[#193286] text-white p-6 md:p-8 flex flex-col justify-between h-[400px] md:h-[350px]">
           <div>
             <div className="flex justify-between items-start mb-4 h-[64px] md:h-[72px]">
-              <h3 className="text-xl md:text-xl font-bold max-w-[200px] leading-tight">
+              <h3 className="text-lg md:text-xl font-bold max-w-[200px] leading-tight">
                 {card.title}
               </h3>
               <div className="w-15 h-15 relative flex-shrink-0 mt-0.5 filter brightness-0 invert">
@@ -100,7 +100,7 @@ function ServiceCardItem({
             alt={card.title}
             fill
             priority={priority}
-            sizes="(max-width: 768px) calc(100vw - 3rem), 360px"
+            sizes="(max-width: 639px) 78vw, 360px"
             onLoad={() => setIsLoaded(true)}
             className="object-cover"
           />
@@ -200,15 +200,17 @@ export default function ServicingSection() {
         ) as HTMLElement[];
 
         if (cardElements.length > 0) {
-          const positions = cardElements.map((card) => -card.offsetLeft);
-          setSnapPositions(positions);
-
           const totalWidth = trackRef.current.scrollWidth;
-          const scrollLimit = totalWidth - containerWidth;
-          setDragConstraints({
-            left: scrollLimit > 0 ? -scrollLimit : 0,
-            right: 0,
-          });
+          const scrollLimit = Math.max(totalWidth - containerWidth, 0);
+          const firstOffset = cardElements[0].offsetLeft;
+
+          // posisi geser tidak boleh melewati batas kanan
+          const positions = cardElements.map((card) =>
+            Math.max(-(card.offsetLeft - firstOffset), -scrollLimit),
+          );
+
+          setSnapPositions(positions);
+          setDragConstraints({ left: -scrollLimit, right: 0 });
         }
       }
     };
