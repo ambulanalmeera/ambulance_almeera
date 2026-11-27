@@ -245,8 +245,7 @@ export default function GalleryPage() {
           Galeri Dokumentasi
         </h1>
         <p className="mt-3 max-w-xl text-sm leading-relaxed text-gray-600 md:text-base">
-          Dokumentasi kegiatan dan layanan kami, mulai dari transportasi pasien
-          hingga pelayanan kedukaan.
+          Dokumentasi kegiatan dan layanan kami.
         </p>
       </motion.header>
 
