@@ -50,13 +50,13 @@ function ServiceCard({ card, onOpenModal }: ServiceCardProps) {
         }`}
       >
         {/* top section */}
-        <div className="bg-[#193286] text-white p-6 md:p-8 flex flex-col justify-between h-[350px] md:h-[360px]">
+        <div className="bg-[#193286] text-white p-3.5 sm:p-5 md:p-8 flex flex-col justify-between h-[240px] sm:h-[290px] md:h-[360px]">
           <div>
-            <div className="flex justify-between items-start mb-4 h-[64px] md:h-[72px]">
-              <h3 className="text-xl md:text-xl font-bold max-w-[200px] leading-tight">
+            <div className="flex justify-between items-start gap-2 mb-2 md:mb-4 h-[42px] sm:h-[54px] md:h-[72px]">
+              <h3 className="text-[13px] sm:text-base md:text-xl font-bold leading-snug md:leading-tight line-clamp-3 md:line-clamp-none md:max-w-[200px]">
                 {card.title}
               </h3>
-              <div className="w-15 h-15 relative flex-shrink-0 mt-0.5 filter brightness-0 invert">
+              <div className="w-7 h-7 sm:w-10 sm:h-10 md:w-15 md:h-15 relative flex-shrink-0 mt-0.5 filter brightness-0 invert">
                 <Image
                   src={card.icon}
                   alt={card.title}
@@ -66,17 +66,19 @@ function ServiceCard({ card, onOpenModal }: ServiceCardProps) {
               </div>
             </div>
 
-            <div className="w-full h-[3px] bg-[#2e50c0] my-3" />
+            <div className="w-full h-[2px] md:h-[3px] bg-[#2e50c0] my-2 md:my-3" />
 
-            <p className="text-sm text-gray-100 leading-relaxed">{card.desc}</p>
+            <p className="text-[11px] sm:text-xs md:text-sm text-gray-100 leading-normal md:leading-relaxed line-clamp-4 sm:line-clamp-5 md:line-clamp-none">
+              {card.desc}
+            </p>
           </div>
 
           {/* button */}
-          <div className="mt-8">
+          <div className="mt-3 sm:mt-5 md:mt-8">
             <button
               onClick={() => onOpenModal(card.title)}
               draggable={false}
-              className="bg-[#b81424] hover:bg-[#9c0e1b] transition-colors py-3 px-6 rounded-full text-center text-white text-sm font-semibold inline-flex items-center justify-center w-full cursor-pointer shadow"
+              className="bg-[#b81424] hover:bg-[#9c0e1b] transition-colors py-2 px-3 sm:py-2.5 sm:px-5 md:py-3 md:px-6 rounded-full text-center text-white text-[11px] sm:text-xs md:text-sm font-semibold inline-flex items-center justify-center w-full cursor-pointer shadow"
             >
               Pesan Sekarang
             </button>
@@ -84,7 +86,7 @@ function ServiceCard({ card, onOpenModal }: ServiceCardProps) {
         </div>
 
         {/* image */}
-        <div className="relative h-52 md:h-62 w-full bg-gray-100 overflow-hidden pointer-events-none">
+        <div className="relative h-28 sm:h-40 md:h-62 w-full bg-gray-100 overflow-hidden pointer-events-none">
           <Image
             src={card.img}
             alt={card.title}
@@ -164,25 +166,25 @@ export default function ServicesPage() {
   };
 
   return (
-    <main className="max-w-7xl mx-auto px-6 md:px-12 py-10 text-neutral-900">
+    <main className="max-w-7xl mx-auto px-4 md:px-12 py-6 md:py-10 text-neutral-900">
       {/* breadcrumb */}
       <Breadcrumb items={[{ label: "Layanan Kami" }]} />
 
       {/* header */}
-      <header className="mb-14 text-left">
+      <header className="mb-8 md:mb-14 text-left">
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           style={{ transform: "translateZ(0)", backfaceVisibility: "hidden" }}
-          className="text-4xl md:text-[40px] font-black text-[#193286] mb-4 tracking-tight will-change-transform"
+          className="text-2xl sm:text-3xl md:text-[40px] font-black text-[#193286] mb-3 md:mb-4 tracking-tight will-change-transform"
         >
           Layanan Kami
         </motion.h1>
       </header>
 
       {/* grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-8">
         {cards.map((card, idx) => (
           <ServiceCard key={idx} card={card} onOpenModal={handleOpenModal} />
         ))}
